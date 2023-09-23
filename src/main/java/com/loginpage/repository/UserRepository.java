@@ -4,16 +4,17 @@ import com.loginpage.model.User;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Repository
 @NoArgsConstructor
 public class UserRepository {
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 
-    public UserRepository(final HashSet<User> users) {
+    public UserRepository(final List<User> users) {
         this.users = users;
     }
 
@@ -23,11 +24,21 @@ public class UserRepository {
                 .findFirst();
     }
 
-    public void save(final Set<User> users) {
-        this.users.addAll(users);
+    public User save(final User user) {
+        final Optional<User> savedUser = findByName(user.getUsername());
+        if (savedUser.isPresent()) {
+            System.out.println("User exist in database! User:" + savedUser.get().getUsername());
+            return null;
+        }
+        users.add(user);
+        return user;
     }
 
-    public void delete(final Set<User> users) {
+    public void delete(final List<User> users) {
         this.users.removeAll(users);
+    }
+
+    public Integer getNumOfUsers() {
+        return users.size();
     }
 }

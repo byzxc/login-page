@@ -4,9 +4,7 @@ import com.loginpage.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,13 +14,13 @@ public class UserRepositoryTest {
     @BeforeEach
     public void setUp() {
         // Initialize the in-memory repository
-        userRepository = new UserRepository(new HashSet<>());
+        userRepository = new UserRepository(new ArrayList<>());
     }
 
     @Test
     public void testSaveAndFindByName() {
         final User user = new User("testuser", "password", Role.NormalUser);
-        userRepository.save(Set.of(user));
+        userRepository.save(user);
 
         final Optional<User> foundUser = userRepository.findByName("testuser");
         assertTrue(foundUser.isPresent());
@@ -38,9 +36,9 @@ public class UserRepositoryTest {
     @Test
     public void testDelete() {
         final User manager = new User("testmgr", "password", Role.Manager);
-        userRepository.save(Set.of(manager));
+        userRepository.save(manager);
 
-        userRepository.delete(Set.of(manager));
+        userRepository.delete(List.of(manager));
         Optional<User> foundUser = userRepository.findByName("testmgr");
         assertFalse(foundUser.isPresent());
     }
