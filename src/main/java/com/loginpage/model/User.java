@@ -1,36 +1,25 @@
 package com.loginpage.model;
 
 import com.loginpage.repository.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
+
+    @Column(name = "USERNAME")
     private String username;
-    // Change to Encoded version later
+
+    @Column(name = "PASSWORD")
     private String password;
-    private Role role;
-
-    public User(final String name, final String password, final Role role) {
-        this.username = name;
-        this.password = password;
-        this.role = role;
-    }
-
-    public final String getUsername() {
-        return username;
-    }
-
-    public final Role getRole() {
-        return role;
-    }
 }
+
