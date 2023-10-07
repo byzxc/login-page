@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+    <style>
+        body {
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
 <h1>Welcome, <span th:text="${username}"></span>!</h1>
